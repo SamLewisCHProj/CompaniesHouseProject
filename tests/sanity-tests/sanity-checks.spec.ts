@@ -1,8 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { adminLogin } from "../../common";
 import { frontPage } from "../../pages/front-page";
 
-test.describe("Sanity Checks", () => {
+test.describe("Sanity Checks", () => { 
   const firstName = "room";
   const lastName = "booker";
   const email = "room@test.com";
@@ -14,7 +14,7 @@ test.describe("Sanity Checks", () => {
     await page.getByRole("button", { name: "Next" }).click();
     const source = page.locator("div").filter({ hasText: /^09$/ });
     const target = page.locator("div").filter({ hasText: /^13$/ });
-
+    const form = new frontPage(page);
     const sourceBox = await source.boundingBox();
     const targetBox = await target.boundingBox();
 
@@ -33,18 +33,7 @@ test.describe("Sanity Checks", () => {
       await page.mouse.up();
       await page.waitForTimeout(500);
     }
-    await page.getByPlaceholder("Firstname").click();
-    await page.getByPlaceholder("Firstname").fill(`${firstName}`);
-    await page.getByPlaceholder("Lastname").click();
-    await page.getByPlaceholder("Lastname").fill(`${lastName}`);
-    await page.locator('input[name="email"]').click();
-    await page.locator('input[name="email"]').fill(`${email}`);
-    await page.locator('input[name="phone"]').click();
-    await page.locator('input[name="phone"]').fill(`${mobileNumber}`);
-    await page.getByRole("button", { name: "Book", exact: true }).click();
-    await expect(
-      page.getByRole("heading", { name: "Booking Successful!" })
-    ).toBeVisible();
+    await form.fillBookingForm(page, firstName, lastName, email, mobileNumber)
     adminLogin(page);
     // check messages for booking
     await page.goto("https://automationintesting.online/#/admin/messages");
@@ -70,7 +59,6 @@ test.describe("Sanity Checks", () => {
       subject,
       description
     );
-    await page.goto("https://automationintesting.online/#/admin/messages");
     adminLogin(page);
     await page.goto("https://automationintesting.online/#/admin/messages");
     await page.getByText(subject).click();

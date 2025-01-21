@@ -1,0 +1,17 @@
+Process:
+Created project on vscode and pushed to github
+
+I initially started thinking about all the critical functionality
+Identified areas to focus on - front page, admin page, booking system etc 
+Created test cases that should be covered
+Started writing automated tests
+Refactored common code into a common file to reference in other tests
+Created a Page object for the front page/admin pages to have selectors available without having to find them every time
+
+
+Thoughts:
+
+- It would be nice to have these functional tests run in a pipeline on every PR raised by a developer working on the site
+- Running this on my local server would prevent the cross contamination of data from other candidates
+- If running in a pipeline, I would store the usernames and passwords in the environment variables for that project, as we are not, I have stored them in the tests. I would advocate against this.
+- 
