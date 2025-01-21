@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { adminLogin } from "../../common";
+import { frontPage } from "../../pages/front-page";
 
 test.describe("Sanity Checks", () => {
   const firstName = "room";
@@ -7,16 +8,15 @@ test.describe("Sanity Checks", () => {
   const email = "room@test.com";
   const mobileNumber = "01234567890";
   test("Book a room", async ({ page }) => {
-    const source = page.locator("div").filter({ hasText: /^17$/ });
-    const target = page.locator("div").filter({ hasText: /^20$/ });
-
-    const sourceBox = await source.boundingBox();
-    const targetBox = await target.boundingBox();
-
     await page.goto("https://automationintesting.online/");
     await page.locator(".col-sm-7 > .btn").first().click();
     await page.getByRole("button", { name: "Next" }).click();
     await page.getByRole("button", { name: "Next" }).click();
+    const source = page.locator("div").filter({ hasText: /^09$/ });
+    const target = page.locator("div").filter({ hasText: /^13$/ });
+
+    const sourceBox = await source.boundingBox();
+    const targetBox = await target.boundingBox();
 
     if (sourceBox && targetBox) {
       await page.mouse.move(
@@ -45,9 +45,7 @@ test.describe("Sanity Checks", () => {
     await expect(
       page.getByRole("heading", { name: "Booking Successful!" })
     ).toBeVisible();
-
-    // log in to admin
-    adminLogin(page)
+    adminLogin(page);
     // check messages for booking
     await page.goto("https://automationintesting.online/#/admin/messages");
     await page.getByText(`${firstName} ${lastName}`).click();
@@ -58,28 +56,25 @@ test.describe("Sanity Checks", () => {
     await expect(page.getByText(`Phone: ${mobileNumber}`)).toBeVisible();
   });
 
-  test("Send message to email address", async ({ page }) => {
+  test("Send enquiry", async ({ page }) => {
     await page.goto("https://automationintesting.online/");
-    const firstName = "test";
-    const lastName = "user";
-    const email = "testing@test.com";
-    const mobileNumber = "01234567890";
-
-    // log in to admin
-    await page.goto("https://automationintesting.online/#/admin");
-    const username = page.getByTestId("username");
-    const password = page.getByTestId("password");
-    await username.fill("admin");
-    await password.fill("password");
-    await page.getByTestId("submit").click();
-
-    // check messages for booking
+    const uniqueSubject = Date.now();
+    const form = new frontPage(page);
+    const subject = `Help me! ${uniqueSubject}`
+    const description = "I really need some help with my booking!"
+    await form.fillContactForm(
+      page,
+      firstName,
+      email,
+      mobileNumber,
+      subject,
+      description
+    );
     await page.goto("https://automationintesting.online/#/admin/messages");
-    await page.getByText(`${firstName} ${lastName}`).click();
-    await expect(page.getByText(`Email: ${email}`)).toBeVisible();
-    await expect(
-      page.getByText(`From: ${firstName} ${lastName}`)
-    ).toBeVisible();
-    await expect(page.getByText(`Phone: ${mobileNumber}`)).toBeVisible();
+    adminLogin(page);
+    await page.goto("https://automationintesting.online/#/admin/messages");
+    await page.getByText(subject).click();
+    await expect(page.getByText(description)).toBeVisible();
+    await page.getByRole("button", { name: "Close" }).click();
   });
 });
