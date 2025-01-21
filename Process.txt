@@ -15,3 +15,13 @@ Thoughts:
 - Running this on my local server would prevent the cross contamination of data from other candidates
 - If running in a pipeline, I would store the usernames and passwords in the environment variables for that project, as we are not, I have stored them in the tests. I would advocate against this.
 - 
+
+
+
+Issues:
+- I ran into a problem with the playwright dragTo() command, for calendar bookings, in theory this should just work when selecting the start date box and the end date box, but had to do some googling and use ChatGPT to provide a solution that works. In the interest of time, I used what was suggested so i had something to show working.
+
+
+TODO:
+
+API test to see if i can add a booking 

@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { adminLogin } from "../../common";
+import { adminPage } from '../../pages/admin-pages';
 import { frontPage } from "../../pages/front-page";
 
 test.describe("Sanity Checks", () => { 
@@ -8,16 +8,20 @@ test.describe("Sanity Checks", () => {
   const email = "room@test.com";
   const mobileNumber = "01234567890";
   test("Book a room", async ({ page }) => {
+    const form = new frontPage(page);
+    const admin = new adminPage(page)
     await page.goto("https://automationintesting.online/");
     await page.locator(".col-sm-7 > .btn").first().click();
+    // change the month to avoid clashes with other candidates
     await page.getByRole("button", { name: "Next" }).click();
     await page.getByRole("button", { name: "Next" }).click();
-    const source = page.locator("div").filter({ hasText: /^09$/ });
-    const target = page.locator("div").filter({ hasText: /^13$/ });
-    const form = new frontPage(page);
+    // find the correct days of the month
+    const source = page.locator("div").filter({ hasText: /^16$/ });
+    const target = page.locator("div").filter({ hasText: /^20$/ });
+
     const sourceBox = await source.boundingBox();
     const targetBox = await target.boundingBox();
-
+    // drag and drop the mouse from the start date to the end date.
     if (sourceBox && targetBox) {
       await page.mouse.move(
         sourceBox.x + sourceBox.width / 2,
@@ -33,22 +37,18 @@ test.describe("Sanity Checks", () => {
       await page.mouse.up();
       await page.waitForTimeout(500);
     }
+    // fill the form and book
     await form.fillBookingForm(page, firstName, lastName, email, mobileNumber)
-    adminLogin(page);
     // check messages for booking
-    await page.goto("https://automationintesting.online/#/admin/messages");
-    await page.getByText(`${firstName} ${lastName}`).click();
-    await expect(page.getByText(`Email: ${email}`)).toBeVisible();
-    await expect(
-      page.getByText(`From: ${firstName} ${lastName}`)
-    ).toBeVisible();
-    await expect(page.getByText(`Phone: ${mobileNumber}`)).toBeVisible();
+    await admin.adminLogin(page);
+    await admin.verifyBooking(page, firstName, lastName, email, mobileNumber)
   });
 
   test("Send enquiry", async ({ page }) => {
     await page.goto("https://automationintesting.online/");
     const uniqueSubject = Date.now();
     const form = new frontPage(page);
+    const admin = new adminPage(page)
     const subject = `Help me! ${uniqueSubject}`
     const description = "I really need some help with my booking!"
     await form.fillContactForm(
@@ -59,10 +59,7 @@ test.describe("Sanity Checks", () => {
       subject,
       description
     );
-    adminLogin(page);
-    await page.goto("https://automationintesting.online/#/admin/messages");
-    await page.getByText(subject).click();
-    await expect(page.getByText(description)).toBeVisible();
-    await page.getByRole("button", { name: "Close" }).click();
+    await admin.adminLogin(page);
+    await admin.verifyEnquiry(page,subject, description)
   });
 });

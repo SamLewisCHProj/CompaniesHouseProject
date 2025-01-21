@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from "@playwright/test";
 
 export class frontPage {
-  private page: Page;
+  page: Page;
   contactNameBox: Locator;
   contactEmailBox: Locator;
   contactPhoneBox: Locator;
