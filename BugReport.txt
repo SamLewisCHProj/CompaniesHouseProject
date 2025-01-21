@@ -1,0 +1,7 @@
+Invalid room number on API is accepted. - using a room that does not exist allows the api to make a booking. It should return a 400, but get a 201.
+(See Negative API test - Use invalid room number)
+
+Phone can be a string on api and front end - using all other correct info, a booking can be made when the phone number is a string of text, or any other symbols. Only thing being enforced is the length. (See Negative API test - Use invalid phone number)
+
+
+

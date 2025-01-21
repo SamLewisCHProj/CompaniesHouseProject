@@ -20,8 +20,10 @@ Thoughts:
 
 Issues:
 - I ran into a problem with the playwright dragTo() command, for calendar bookings, in theory this should just work when selecting the start date box and the end date box, but had to do some googling and use ChatGPT to provide a solution that works. In the interest of time, I used what was suggested so i had something to show working.
+- Testing the API i noticed the error handling was not complete, just returning bad request on date being incorrect. This could be changed to tell the user which part was incorrectly entered. (Unsure if the api is used to make bookings.)
+
 
 
 TODO:
 
-API test to see if i can add a booking 
+Test Plan
