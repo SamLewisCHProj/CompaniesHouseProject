@@ -3,12 +3,12 @@ Happy path tests:
     Send enquiry message using form at the bottom - verify message recieved - complete
 
 Admin Page:
+    Check Inbox for new booking - complete
     Check report calendar
-    Room creation form field validation
     Change B&B details and check they are updated, image/name/description.
     Change Contact details and see if its updated.
     Nice to have - Change map details and see if its updated.
-    Check Inbox for new booking - complete
+    
 
 API testing:
     Booking room via API works - Complete, but i know this fails as I havent got round to writing the removal for this, so the dates are duplicated and therefore not booked.
@@ -16,7 +16,7 @@ API testing:
     
 
 Validation tests:
-    Field validation tests on all booking forms
+    Field validation tests on all booking forms - complete
     Room number cannot be the same when adding a room
     Cannot book on same days when there is another booking.
     Cannot book in the past

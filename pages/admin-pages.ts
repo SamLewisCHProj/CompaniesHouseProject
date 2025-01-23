@@ -109,13 +109,16 @@ export class adminPage {
     type: "Single" | "Double" | "Twin",
     accessibility: "true" | "false",
     price: string,
-    options: Array<"Wifi" | "TV" | "Radio" | "Refreshments" | "Safe" | "Views">
+    options: Array<"Wifi" | "TV" | "Radio" | "Refreshments" | "Safe" | "Views">,
+    checkDuplicates: boolean = true
   ) {
-    const roomNumberTaken = await this.page
-      .locator(`\ text="${number}"`)
-      .count();
-    if (roomNumberTaken > 0) {
-      return;
+    if (checkDuplicates == true) {
+      const roomNumberTaken = await this.page
+        .locator(`\ text="${number}"`)
+        .count();
+      if (roomNumberTaken > 0) {
+        return;
+      }
     }
     await this.roomNumber.fill(number);
     await this.roomType(type);
