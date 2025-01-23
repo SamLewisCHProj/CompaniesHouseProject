@@ -62,8 +62,5 @@ export class frontPage {
     await this.bookingEmail.fill(`${email}`);
     await this.bookingPhone.fill(`${phone}`);
     await this.bookRoomButton.click();
-    await expect(
-      page.getByRole("heading", { name: "Booking Successful!" })
-    ).toBeVisible();
   }
 }

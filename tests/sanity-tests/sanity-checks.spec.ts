@@ -1,15 +1,15 @@
 import { test, expect, Page } from "@playwright/test";
-import { adminPage } from '../../pages/admin-pages';
+import { adminPage } from "../../pages/admin-pages";
 import { frontPage } from "../../pages/front-page";
 
-test.describe("Sanity Checks", () => { 
+test.describe("Sanity Checks", () => {
   const firstName = "room";
   const lastName = "booker";
   const email = "room@test.com";
   const mobileNumber = "01234567890";
   test("Book a room", async ({ page }) => {
     const form = new frontPage(page);
-    const admin = new adminPage(page)
+    const admin = new adminPage(page);
     await page.goto("https://automationintesting.online/");
     await page.locator(".col-sm-7 > .btn").first().click();
     // change the month to avoid clashes with other candidates
@@ -38,19 +38,22 @@ test.describe("Sanity Checks", () => {
       await page.waitForTimeout(500);
     }
     // fill the form and book
-    await form.fillBookingForm(page, firstName, lastName, email, mobileNumber)
+    await form.fillBookingForm(page, firstName, lastName, email, mobileNumber);
+    await expect(
+      page.getByRole("heading", { name: "Booking Successful!" })
+    ).toBeVisible();
     // check messages for booking
     await admin.adminLogin(page);
-    await admin.verifyBooking(page, firstName, lastName, email, mobileNumber)
+    await admin.verifyBooking(page, firstName, lastName, email, mobileNumber);
   });
 
   test("Send enquiry", async ({ page }) => {
     await page.goto("https://automationintesting.online/");
     const uniqueSubject = Date.now();
     const form = new frontPage(page);
-    const admin = new adminPage(page)
-    const subject = `Help me! ${uniqueSubject}`
-    const description = "I really need some help with my booking!"
+    const admin = new adminPage(page);
+    const subject = `Help me! ${uniqueSubject}`;
+    const description = "I really need some help with my booking!";
     await form.fillContactForm(
       page,
       firstName,
@@ -60,6 +63,6 @@ test.describe("Sanity Checks", () => {
       description
     );
     await admin.adminLogin(page);
-    await admin.verifyEnquiry(page,subject, description)
+    await admin.verifyEnquiry(page, subject, description);
   });
 });

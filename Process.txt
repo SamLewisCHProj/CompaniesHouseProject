@@ -1,4 +1,7 @@
+Thanks for taking the time to review my test suite, please find below a very basic outline of my process during this task. I clearly did not have enough time to do all the things i would like to have done on the site, but hopefully the test cases i have mentioned in the test cases.txt file are some indication of where i would have liked to have gone with this, given more time. 
+
 Process:
+
 Created project on vscode and pushed to github
 
 I initially started thinking about all the critical functionality
@@ -7,6 +10,7 @@ Created test cases that should be covered
 Started writing automated tests
 Refactored common code into a common file to reference in other tests
 Created a Page object for the front page/admin pages to have selectors available without having to find them every time
+Refactored the more complex but repetitive functions so that they could be re-used over and over
 
 
 Thoughts:
@@ -14,14 +18,12 @@ Thoughts:
 - It would be nice to have these functional tests run in a pipeline on every PR raised by a developer working on the site
 - Running this on my local server would prevent the cross contamination of data from other candidates
 - If running in a pipeline, I would store the usernames and passwords in the environment variables for that project, as we are not, I have stored them in the tests. I would advocate against this.
-- 
 
 
 
 Issues:
 - I ran into a problem with the playwright dragTo() command, for calendar bookings, in theory this should just work when selecting the start date box and the end date box, but had to do some googling and use ChatGPT to provide a solution that works. In the interest of time, I used what was suggested so i had something to show working.
-- Testing the API i noticed the error handling was not complete, just returning bad request on date being incorrect. This could be changed to tell the user which part was incorrectly entered. (Unsure if the api is used to make bookings.)
-
+- 
 
 
 TODO:

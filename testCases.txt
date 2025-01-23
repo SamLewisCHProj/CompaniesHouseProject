@@ -1,0 +1,43 @@
+Happy path tests:
+    Add room on booking screen and book, check it was booked successfully. - complete
+    Send enquiry message using form at the bottom - verify message recieved - complete
+
+Admin Page:
+    Check report calendar
+    Room creation form field validation
+    Change B&B details and check they are updated, image/name/description.
+    Change Contact details and see if its updated.
+    Nice to have - Change map details and see if its updated.
+    Check Inbox for new booking - complete
+
+API testing:
+    Booking room via API works - Complete, but i know this fails as I havent got round to writing the removal for this, so the dates are duplicated and therefore not booked.
+    validation tests on the api - complete
+    
+
+Validation tests:
+    Field validation tests on all booking forms
+    Room number cannot be the same when adding a room
+    Cannot book on same days when there is another booking.
+    Cannot book in the past
+
+*****************************************************************
+Additional Thoughts not yet covered:
+
+Accessibility testing: 
+    Given more time, it would be nice to get some automated Accessibility testing in, to make sure standards haven't slipped since the last time things were changed. 
+    This could be achieved using something like the AXE plugin for playwright, this would allow us to report a benchmark and test against specific pages on each checkin.
+    Initially, without the automated pipeline and testing, we could use something akin to WAVE evaluation tool for a manual sweep of common issues to give ourselves a baseline. 
+
+Performance testing:
+    Given the complexity of the site, and based on the number of concurrent bookers that would potentially be accessing the rooms at any given time, i would look to use a performance tool to mimic users behaviour at peak times to ensure there are no issues. That said, my experience with setting these up has been minimal in real world scenarios up until this point. I am keen to learn about this as an area of interest. 
+    For a very generic baseline level of performance, you could integrate a Lighthouse script into the pipeline to give a score out of 100 for various areas of performance, first contentful paint, largest, speed index etc to give an overall view of how the site is performing. (This also provides some helpful hints on where to make improvements)
+
+Security testing: 
+    Again, depending on how far you would like to push this - there are many solutions for security testing. One option is go with a big all in one solution like Checkmarx that covers SAST, DAST, reporting and how to fix in a single package, or pick and choose the tools you would use. 
+    This could be checking against the OWASP top 10 using ZAP in the command line to run basic tests against the pages/applications you have, this is one of the opensource options that gives a good level of compliance.
+    Prior to this, all developers/engineers who are committing to the repos should use a SAST tool similar to Snyk to ensure no compromises in the code. 
+    You may also want to run less frequent monthly/weekly scans using software such as AppCheck, which is a very configurable, more rigorous check of the site and its behaviour against a plethora of security issues. 
+
+
+
