@@ -1,0 +1,17 @@
+23/01/2025, Identified in V.XX (Could be tags for team members/version/environment etc)
+    automationtesting.online (any env variables here)
+    User can enter a letter in the room price and cause the site to hang
+
+Description:
+    When an admin is adding a room to the site, and they choose a letter instead of a number, upon clicking create, they are presented with a white screen and there is an error. There should be some error handling to check either before the submit action happens, or after to show that there was an issue with the input data. 
+
+Steps to reproduce:
+    Log into admin site
+    Create a room with valid data, but a letter instead of a number for a price
+    Click Create 
+
+Actual Results:
+    User is presented with a white screen and the site is non responsive
+
+Expected Results:
+    User is presented with an error message either before or after the create event is submitted.

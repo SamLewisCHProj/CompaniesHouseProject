@@ -1,0 +1,10 @@
+Misc
+
+1 - Invalid room number on API is accepted. - using a room that does not exist allows the api to make a booking. It should return a 400, but get a 201.
+(See Negative API test - Use invalid room number)
+
+2 - Testing the API i noticed the error handling was not complete, just returning bad request on date being incorrect. This could be changed to tell the user which part was incorrectly entered. (Unsure if the api is used to make bookings.)
+
+3 - Recieving 409 errors where i was expdecting to recieve 400's, I would speak with the developer of the site to see if this was the intended behaviour. Encountered the issue during a few of my API tests that use invalid data.
+
+4 - Phone can be a string on api and front end - using all other correct info, a booking can be made when the phone number is a string of text, or any other symbols. Only thing being enforced is the length. (See Negative API test - Use invalid phone number)

@@ -1,0 +1,20 @@
+23/01/2025, Identified in V.XX (Could be tags for team members/version/environment etc)
+    automationtesting.online (any env variables here)
+    Room can be created duplicate to another number/name, price.
+
+Description:
+    When adding a room to the site using the admin panel, you are able to create the same room twice with exactly the same details. This should be prevented by an error message saying that the room name/number exists.
+
+Steps to reproduce:
+    - Log in to admin panel 
+    - Fill out room details and click create
+    - Using the same details, fill out another room and click create
+
+Expected Result:
+    User is presented with an error message that the room number/name already exists
+
+Actual Result: 
+    User can create another room using the same information.
+
+Other information: 
+    {Any other key information to the task}

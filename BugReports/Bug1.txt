@@ -1,0 +1,20 @@
+23/01/2025, Identified in V.XX (Could be tags for team members/version/environment etc)
+    automationtesting.online (any env variables here)
+    Front page field validation is not showing which fields are incorrect.
+
+Description:
+    There are no useful indicators on the error messages for the site (With the exception of the firstname/lastname fields). For example, when a user tries to book a room on the front page. We should be showing the user information that can help them identify and correct data if there is a problem.
+
+Steps to reproduce:
+    - Select a 'Book this room' button for the room you wish to book and click
+    - click on 'Book' without filling in any other information
+
+Expected Result:
+    User is presented with helpful tooltips to indicate which fields are missing/which rules are not met
+
+Actual Result: 
+    User is met with all the tooltips but no information on which fields they apply to.
+
+Other information: 
+    {Any other key information to the task}
+
