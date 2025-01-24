@@ -26,3 +26,4 @@ Thoughts:
 
 Issues:
 - I ran into a problem with the playwright dragTo() command, for calendar bookings, in theory this should just work when selecting the start date box and the end date box, but had to do some googling and use ChatGPT to provide a solution that works. In the interest of time, I used what was suggested so i had something to show working.
+
